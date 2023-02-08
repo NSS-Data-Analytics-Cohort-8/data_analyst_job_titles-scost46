@@ -41,15 +41,11 @@ WHERE location = 'CA';
 
 --9.	Find the name of each company and its average star rating for all companies that have more than 5000 reviews across all locations. How many companies are there with more that 5000 reviews across all locations?
 
-SELECT company, ROUND(AVG(star_rating),2)
+SELECT DISTINCT(company), ROUND(AVG(star_rating),2)
 FROM data_analyst_jobs
 WHERE review_count > 5000
 GROUP BY company;
 
-SELECT COUNT(*)
-FROM data_analyst_jobs
-WHERE review_count > 5000
-GROUP BY company;
 
 --10.	Add the code to order the query in #9 from highest to lowest average star rating. Which company with more than 5000 reviews across all locations in the dataset has the highest star rating? What is that rating?
 SELECT company, ROUND(AVG(star_rating),2) AS avg_star_rating
