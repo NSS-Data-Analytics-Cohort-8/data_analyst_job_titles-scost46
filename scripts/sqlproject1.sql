@@ -71,8 +71,21 @@ AND title NOT LIKE '%Analytics%';
 -- Order your results so that the domain with the greatest number of `hard to fill` jobs is at the top. 
 --  Which three industries are in the top 4 on this list? How many jobs have been listed for more than 3 weeks for each of the top 4?
 
-SELECT *
+SELECT COUNT(days_since_posting)
 FROM data_analyst_jobs
-WHERE domain IS NOT NULL
-AND days_since_posting > 21
-ORDER BY days_since_posting DESC
+WHERE days_since_posting > 21
+	AND skill LIKE '%SQL%'
+	AND domain IS NOT NULL;
+	
+SELECT COUNT(days_since_posting) AS hard_to_fill, domain
+FROM data_analyst_jobs
+WHERE days_since_posting > 21
+	AND skill LIKE '%SQL%'
+	AND domain IS NOT NULL
+GROUP BY domain
+ORDER BY hard_to_fill DESC
+Limit 4;
+	
+	
+
+
