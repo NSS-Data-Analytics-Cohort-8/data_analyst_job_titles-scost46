@@ -16,7 +16,8 @@ OR location = 'KY';
 --4.	How many postings in Tennessee have a star rating above 4?
 SELECT COUNT(location)
 FROM data_analyst_jobs
-WHERE star_rating > '4';
+WHERE star_rating > '4'
+AND location = 'TN';
 
 --5.	How many postings in the dataset have a review count between 500 and 1000?
 SELECT COUNT (*)
@@ -86,6 +87,14 @@ GROUP BY domain
 ORDER BY hard_to_fill DESC
 Limit 4;
 	
-	
+--	For each company, give the company name and the difference between its star rating and the national average star rating.
+--CTE
 
+WITH national_avg AS (
+SELECT AVG(star_rating) AS avg_star_rating
+FROM data_analyst_jobs
+)
 
+SELECT company,
+		star_rating - (SELECT ROUND(avg_star_rating,2) FROM national_avg) AS difference 
+FROM data_analyst_jobs
